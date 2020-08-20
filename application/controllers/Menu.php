@@ -1,110 +1,94 @@
 <?php
 require('BaseController.php');
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Menu extends BaseController 
+class Menu extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Menu_model');   
+    }
+
     public function index()
     {
         $data['user'] = $this->username;
-        
-        $data['menu'] = $this->db->get('param_menu')->result_array();
+        $data['menu'] = $this->Menu_model->index();
+        $data['title'] = 'Menu';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('menu/index', $data);
+        $this->load->view('templates/footer');
+    }
 
+    public function create()
+    {
+        $this->load->library('form_validation');
         $this->form_validation->set_rules('menu','Menu','required');
 
         if ($this->form_validation->run()== FALSE) {
-            $data['title'] = 'Menu Management';
-            $this->load->view('templates/header',$data);
-            $this->load->view('templates/sidebar',$data);
-            $this->load->view('templates/topbar',$data);
-            $this->load->view('menu/index',$data);
-            $this->load->view('templates/footer');
+            redirect('menu');
         } else {
             $menu = $this->input->post('menu');
-            $user_id = $this->input->post('user_id');
-            $tgl = date('Y-m-d H:i:s');
+            $created_by = $this->uid;
+            $created_at = $this->datenow;
             $data = array(
                 'descr' => $menu,
-                'created_by' => $user_id,
-                'created_at' => $tgl
+                'created_by' => $created_by,
+                'created_at' => $created_at
             );
-            $this->db->insert('param_menu',$data);
-            $this->session->set_flashdata('message','Menu Berhasil Ditambahkan');
-            redirect('menu');   
-        }             
+            $insert = $this->Menu_model->create($data);
+            if($insert){
+                $this->session->set_flashdata('message','Menu Berhasil Ditambahkan');
+                redirect('menu');
+            }else{
+                $this->session->set_flashdata('message1','Menu Gagal Ditambahkan');
+                redirect('menu');
+            }
+        }     
     }
 
-    public function deleteMenu($Id)
+    public function show($id)
     {
-        $this->db->where('id',$Id);
-        $this->db->delete('param_menu');
-        $this->session->set_flashdata('message','Menghapus Menu');
-        redirect('menu');   
-    }
-
-    public function editMenu(){
-        $this->Menu_model->editMenu();
-        $this->session->set_flashdata('message','Mengubah Menu');
-        redirect('menu');
-    }
-
-    public function submenu()
-    {
-        // $data['user'] = $this->db->get_where('d_user',['email' => $this->session->userdata('email')])->row_array();
+        header('Content-Type: application/json');
+        $this->db->select('id,descr');
+        $getData = $this->db->get_where('param_menu',['id' => $id])->row_array();
+        if(($getData)){
+            $data = ['data' => ['status' => true, 'data' => $getData]];
+        }else{
+            $data = ['data' => ['status' => false, 'message' => 'Data Tidak Ditemukan']];
+        }
         
-        $this->load->model('Menu_model');
-        $data['menu'] = $this->db->get('param_menu')->result_array();
-        $data['subMenu'] = $this->Menu_model->getSubMenu();
-
-        $this->form_validation->set_rules('descr','Title','required');
-        $this->form_validation->set_rules('url','URL','required');
-
-        if ($this->form_validation->run()== FALSE) {
-            $data['title'] = 'SubMenu Management';
-            $this->load->view('templates/header',$data);
-            $this->load->view('templates/sidebar',$data);
-            $this->load->view('templates/topbar',$data);
-            $this->load->view('menu/submenu',$data);
-            $this->load->view('templates/footer');
-        } else {
-            $this->Menu_model->addSubmenu();
-            $this->session->set_flashdata('message','Menambahkan Sub Menu');
-            redirect('menu/submenu');  
-        }       
-            
+        echo json_encode($data);
     }
 
-    public function editSubmenu()
+    public function update()
     {
-        $data['user'] = $this->db->get_where('d_user',['email' => $this->session->userdata('email')])->row_array();
-        
-        $this->load->model('Menu_model');
-        $data['menu'] = $this->db->get('d_user_menu')->result_array();
-        $data['subMenu'] = $this->Menu_model->getSubMenu();
-
-        $this->form_validation->set_rules('title','Title','required');
-        $this->form_validation->set_rules('menu_id','Menu','required');
-        $this->form_validation->set_rules('url','URL','required');
-        
-        if ($this->form_validation->run()== FALSE) {
-            $data['title'] = 'SubMenu Management';
-            $this->load->view('templates/header',$data);
-            $this->load->view('templates/sidebar',$data);
-            $this->load->view('templates/topbar',$data);
-            $this->load->view('menu/submenu',$data);
-            $this->load->view('templates/footer');
-        } else {
-            $this->Menu_model->editSub();
-            $this->session->set_flashdata('message','Mengubah Sub Menu');
-            redirect('menu/submenu');  
-        }       
+        $data = [
+            'descr' => $this->input->post('menu'),
+            'updated_by' => $this->input->post('user_id'),
+            'updated_at' => $this->datenow
+        ];
+        $get_id = $this->Menu_model->update($data, $this->input->post('id'));
+        if($get_id){
+            $this->session->set_flashdata('message', 'Menu Berhasil Diubah');
+            redirect('menu');
+        }else{
+            $this->session->set_flashdata('message', 'Menu Gagal Diubah');
+            redirect('menu');
+        }
     }
 
-    public function deleteSubmenu($Id)
+    public function destroy($id)
     {
-        $this->db->where('Id',$Id);
-        $this->db->delete('d_user_sub_menu');
-        $this->session->set_flashdata('message','Menghapus Sub Menu');
-        redirect('menu/submenu');  
+        $delete = $this->Menu_model->destroy($id);
+        if($delete){
+            $this->session->set_flashdata('message', 'Menu Berhasil Dihapus');
+            redirect('menu');
+        }else{
+            $this->session->set_flashdata('message', 'Menu Gagal Dihapus');
+            redirect('menu');
+        }
     }
 }

@@ -8,8 +8,10 @@ class BaseController extends CI_Controller
         is_logged_in();
         $this->load->model('Admin_model');
         $this->load->model('Dashboard_model');
-        $this->load->model('Menu_model');
-        $this->username = $this->db->get_where('param_user',['username' => $this->session->userdata('username')])->row_array();
+        $get_uid = $this->db->get_where('param_user',['username' => $this->session->userdata('username')])->row_array();
+        $this->username = $get_uid;
+        $this->uid = $get_uid['id'];
+        $this->datenow = date('Y-m-d H:i:s');
     }
     
 }

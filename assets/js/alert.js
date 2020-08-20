@@ -2,7 +2,7 @@ const flashData = $('.flash-data').data('flashdata');
 if(flashData){
     Swal.fire(
         'Pesan',
-        'Berhasil '+flashData,
+        flashData,
         'success'
       )
 }
@@ -11,7 +11,7 @@ const flashError = $('.flash-data1').data('flashdata');
 if(flashError){
     Swal.fire(
         'Pesan',
-        'Gagal '+flashError,
+        flashError,
         'warning'
       )
 }

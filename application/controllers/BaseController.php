@@ -7,7 +7,6 @@ class BaseController extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Admin_model');
-        $this->load->model('Dashboard_model');
         $get_uid = $this->db->get_where('param_user',['username' => $this->session->userdata('username')])->row_array();
         $this->username = $get_uid;
         $this->uid = $get_uid['id'];

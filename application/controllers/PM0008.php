@@ -9,7 +9,6 @@ class PM0008 extends BaseController
         parent::__construct();
         $this->load->model('PM0003_model');
         $this->load->model('PM0008_model');
-        $this->load->library('form_validation');
     }
 
     public function index()
@@ -55,7 +54,7 @@ class PM0008 extends BaseController
                 $this->session->set_flashdata('message', 'User Berhasil Ditambahkan');
                 redirect('PM0008');
             } else {
-                $this->session->set_flashdata('message1', 'User Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'User Gagal Ditambahkan');
                 redirect('PM0008');
             }
         }
@@ -101,7 +100,7 @@ class PM0008 extends BaseController
                 $this->session->set_flashdata('message', 'User Berhasil Diubah');
                 redirect('PM0008');
             } else {
-                $this->session->set_flashdata('message', 'User Gagal Diubah');
+                $this->session->set_flashdata('error', 'User Gagal Diubah');
                 redirect('PM0008');
             }
         }
@@ -114,7 +113,7 @@ class PM0008 extends BaseController
             $this->session->set_flashdata('message', 'User Berhasil Dihapus');
             redirect('PM0008');
         } else {
-            $this->session->set_flashdata('message', 'User Gagal Dihapus');
+            $this->session->set_flashdata('error', 'User Gagal Dihapus');
             redirect('PM0008');
         }
     }

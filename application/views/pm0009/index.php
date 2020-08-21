@@ -3,23 +3,23 @@
     <div class="">
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"> </div>
         <div class="flash-data1" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
-        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Tambah Tahun Ajaran</a>
-        <table class="table table-striped table-bordered" id="tableSchollYear" style="width:100%">
+        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Tambah User</a>
+        <table class="table table-striped table-bordered" id="tableUserSiswa" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Tahun Ajaran</th>
+                    <th scope="col">NISN</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($kps as $key => $value) : ?>
+                <?php foreach ($user_data as $key => $value) : ?>
                     <tr>
                         <th scope="row"><?= $key + 1; ?></th>
-                        <td><?= $value['descr']; ?></td>
+                        <td><?= $value['nisn']; ?></td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editSchollYear<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Edit</a>
-                            <a href="pm0006/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="#" data-toggle="modal" data-target="#editUser<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Ganti Password</a>
+                            <a href="pm0009/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -34,17 +34,21 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Tahun Ajaran</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0006/create" method="POST" onsubmit="return validasi(this)">
+            <form action="<?= base_url(); ?>pm0009/create" method="POST" onsubmit="return validasi(this)">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="Tahun Ajaran" class="col-form-label">Tahun Ajaran:</label>
-                        <input type="text" class="form-control" id="descr" name="descr" placeholder="Tahun Ajaran">
+                        <label for="NISN" class="col-form-label">NISN:</label>
+                        <input type="text" class="form-control" id="nisn" name="nisn" placeholder="NISN">
                         <input type="text" name="user_id" hidden value="<?= $this->session->userdata('id'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -57,22 +61,26 @@
 </div>
 
 <!-- Modal Edit Menu -->
-<div class="modal fade" id="editSchollYear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Tahun Ajaran</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0006/update" method="POST" onsubmit="return validasiedit(this)">
+            <form action="<?= base_url(); ?>pm0009/update" method="POST" onsubmit="return validasiedit(this)">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="Tahun Ajaran" class="col-form-label">Tahun Ajaran:</label>
-                        <input type="text" class="form-control" id="editdescr" name="descr" placeholder="Tahun Ajaran">
+                        <label for="NISN" class="col-form-label">NISN:</label>
+                        <input type="text" class="form-control" id="nisnedit" name="nisn" placeholder="NISN" disabled>
                         <input type="text" hidden name="id" id="id">
                         <input type="text" name="user_id" hidden value="<?= $this->session->userdata('id'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="passwordedit" name="password">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -86,11 +94,26 @@
 
 <script type="text/javascript">
     function validasi(form) {
-        var descr = form.descr.value;
-        if (!descr) {
+        var nisn = form.nisn.value;
+        var password = form.password.value;
+        if (!nisn) {
             Swal.fire(
                 'Pesan',
-                'Tahun Ajaran Wajib Diisi',
+                'NISN Wajib Diisi',
+                'warning'
+            )
+            return false;
+        } else if (!password) {
+            Swal.fire(
+                'Pesan',
+                'Password Wajib Diisi',
+                'warning'
+            )
+            return false;
+        } else if (password.length < 6) {
+            Swal.fire(
+                'Pesan',
+                'Password Minimal 6 Karakter',
                 'warning'
             )
             return false;
@@ -99,30 +122,40 @@
     }
 
     function validasiedit(form) {
-        var descr = form.editdescr.value;
-        if (!descr) {
+        var nisn = form.nisnedit.value;
+        var password = form.passwordedit.value;
+        if (!nisn) {
             Swal.fire(
                 'Pesan',
-                'Tahun Ajaran Wajib Diisi',
+                'NISN Wajib Diisi',
                 'warning'
             )
             return false;
+        } else if (password) {
+            if (password.length < 6) {
+                Swal.fire(
+                    'Pesan',
+                    'Password Minimal 6 Karakter',
+                    'warning'
+                )
+                return false;
+            }
         }
         return true;
     }
 
     function detailData(e) {
-        $('#editSchollYear').modal('hide');
+        $('#editUser').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('pm0006/show/'); ?>" + id,
+            url: "<?= base_url('pm0009/show/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;
                 if (data.status === true) {
-                    document.getElementById("editdescr").value = data.data.descr;
+                    document.getElementById("nisnedit").value = data.data.nisn;
                     document.getElementById("id").value = data.data.id;
-                    $('#editSchollYear').modal('show');
+                    $('#editUser').modal('show');
                 } else {
                     Swal.fire(
                         'Pesan',
@@ -153,7 +186,7 @@
         })
     });
 
-    var table = $('#tableSchollYear');
+    var table = $('#tableUserSiswa');
     table.DataTable({
         responsive: true
     });

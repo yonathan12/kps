@@ -8,7 +8,6 @@ class PM0001 extends BaseController
     {
         parent::__construct();
         $this->load->model('PM0001_model');
-        $this->load->library('form_validation');
     }
 
     public function index()
@@ -46,7 +45,7 @@ class PM0001 extends BaseController
                 $this->session->set_flashdata('message', 'Kelas Berhasil Ditambahkan');
                 redirect('PM0001');
             } else {
-                $this->session->set_flashdata('message1', 'Kelas Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'Kelas Gagal Ditambahkan');
                 redirect('PM0001');
             }
         }
@@ -85,7 +84,7 @@ class PM0001 extends BaseController
                 $this->session->set_flashdata('message', 'Kelas Berhasil Diubah');
                 redirect('PM0001');
             } else {
-                $this->session->set_flashdata('message', 'Kelas Gagal Diubah');
+                $this->session->set_flashdata('error', 'Kelas Gagal Diubah');
                 redirect('PM0001');
             }
         }
@@ -98,7 +97,7 @@ class PM0001 extends BaseController
             $this->session->set_flashdata('message', 'Kelas Berhasil Dihapus');
             redirect('PM0001');
         } else {
-            $this->session->set_flashdata('message', 'Kelas Gagal Dihapus');
+            $this->session->set_flashdata('error', 'Kelas Gagal Dihapus');
             redirect('PM0001');
         }
     }

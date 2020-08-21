@@ -8,7 +8,6 @@ class PM0005 extends BaseController
     {
         parent::__construct();
         $this->load->model('PM0005_model');
-        $this->load->library('form_validation');
     }
 
     public function index()
@@ -43,7 +42,7 @@ class PM0005 extends BaseController
                 $this->session->set_flashdata('message', 'Semester Berhasil Ditambahkan');
                 redirect('PM0005');
             } else {
-                $this->session->set_flashdata('message1', 'Semester Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'Semester Gagal Ditambahkan');
                 redirect('PM0005');
             }
         }
@@ -80,7 +79,7 @@ class PM0005 extends BaseController
                 $this->session->set_flashdata('message', 'Semester Berhasil Diubah');
                 redirect('PM0005');
             } else {
-                $this->session->set_flashdata('message', 'Semester Gagal Diubah');
+                $this->session->set_flashdata('error', 'Semester Gagal Diubah');
                 redirect('PM0005');
             }
         }
@@ -93,7 +92,7 @@ class PM0005 extends BaseController
             $this->session->set_flashdata('message', 'Semester Berhasil Dihapus');
             redirect('PM0005');
         } else {
-            $this->session->set_flashdata('message', 'Semester Gagal Dihapus');
+            $this->session->set_flashdata('error', 'Semester Gagal Dihapus');
             redirect('PM0005');
         }
     }

@@ -7,7 +7,7 @@ if(flashData){
       )
 }
 
-const flashError = $('.flash-data1').data('flashdata');
+const flashError = $('.flash-data1').data('error');
 if(flashError){
     Swal.fire(
         'Pesan',

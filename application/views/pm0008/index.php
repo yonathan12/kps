@@ -2,7 +2,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <div class="">
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"> </div>
-        <?php $this->session->flashdata('message') ? $this->session->flashdata('message') : '' ?>
+        <div class="flash-data1" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
         <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Tambah User</a>
         <table class="table table-striped table-bordered" id="tableRole" style="width:100%">
             <thead>
@@ -147,6 +147,13 @@
                 'warning'
             )
             return false;
+        } else if (password.length < 6) {
+            Swal.fire(
+                'Pesan',
+                'Password Minimal 6 Karakter',
+                'warning'
+            )
+            return false;
         } else if (!role) {
             Swal.fire(
                 'Pesan',
@@ -184,6 +191,15 @@
                 'warning'
             )
             return false;
+        } else if (password) {
+            if (password.length < 6) {
+                Swal.fire(
+                    'Pesan',
+                    'Password Minimal 6 Karakter',
+                    'warning'
+                )
+                return false;
+            }
         }
         return true;
     }

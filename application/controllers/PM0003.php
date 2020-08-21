@@ -8,7 +8,6 @@ class PM0003 extends BaseController
     {
         parent::__construct();
         $this->load->model('PM0003_model');
-        $this->load->library('form_validation');
     }
 
     public function index()
@@ -43,7 +42,7 @@ class PM0003 extends BaseController
                 $this->session->set_flashdata('message', 'Role Berhasil Ditambahkan');
                 redirect('PM0003');
             } else {
-                $this->session->set_flashdata('message1', 'Role Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'Role Gagal Ditambahkan');
                 redirect('PM0003');
             }
         }
@@ -80,7 +79,7 @@ class PM0003 extends BaseController
                 $this->session->set_flashdata('message', 'Role Berhasil Diubah');
                 redirect('PM0003');
             } else {
-                $this->session->set_flashdata('message', 'Role Gagal Diubah');
+                $this->session->set_flashdata('error', 'Role Gagal Diubah');
                 redirect('PM0003');
             }
         }
@@ -93,7 +92,7 @@ class PM0003 extends BaseController
             $this->session->set_flashdata('message', 'Role Berhasil Dihapus');
             redirect('PM0003');
         } else {
-            $this->session->set_flashdata('message', 'Role Gagal Dihapus');
+            $this->session->set_flashdata('error', 'Role Gagal Dihapus');
             redirect('PM0003');
         }
     }

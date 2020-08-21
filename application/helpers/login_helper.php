@@ -33,9 +33,9 @@ function check_access($role_id,$menu_id)
 {
     $lib = get_instance();
 
-    $lib->db->where('role_id',$role_id);
-    $lib->db->where('menu_id',$menu_id);
-    $result = $lib->db->get('d_user_access_menu');
+    $lib->db->where('param_role_id',$role_id);
+    $lib->db->where('param_menu_id',$menu_id);
+    $result = $lib->db->get('param_access');
     
     if ($result->num_rows()>0) {
         return "checked='checked'";

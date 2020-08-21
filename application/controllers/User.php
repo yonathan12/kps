@@ -6,7 +6,7 @@ class User extends BaseController
 {
     public function index()
     {
-        $data['user'] = $this->db->get_where('param_user',['username' => $this->session->userdata('username')])->row_array();
+        $data['user'] = $this->username;
         
         $data['title'] = 'Profile';
         $this->load->view('templates/header',$data);
@@ -18,7 +18,7 @@ class User extends BaseController
 
     public function edit()
     {
-        $data['user'] = $this->db->get_where('param_user',['username' => $this->session->userdata('username')])->row_array();
+        $data['user'] = $this->username;
 
         $this->form_validation->set_rules('fullnm','Full Name', 'required|trim');
         
@@ -79,11 +79,11 @@ class User extends BaseController
             $current_password = $this->input->post('current_password');
             $new_password = $this->input->post('new_password1');
             if (!password_verify($current_password,$data['user']['password'])) {
-            $this->session->set_flashdata('message1','Password Salah');
+            $this->session->set_flashdata('error','Password Salah');
             redirect('user/changepassword');
             } else {
                 if ($current_password == $new_password) {
-                    $this->session->set_flashdata('message1','Password Harus Berbeda dengan Password lama');
+                    $this->session->set_flashdata('error','Password Harus Berbeda dengan Password lama');
                     redirect('user/changepassword');
                 } else {
                     $password = password_hash($new_password,PASSWORD_DEFAULT);

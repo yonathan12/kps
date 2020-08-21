@@ -43,7 +43,7 @@ class Menu extends BaseController
                 $this->session->set_flashdata('message','Menu Berhasil Ditambahkan');
                 redirect('menu');
             }else{
-                $this->session->set_flashdata('message1','Menu Gagal Ditambahkan');
+                $this->session->set_flashdata('error','Menu Gagal Ditambahkan');
                 redirect('menu');
             }
         }     
@@ -75,7 +75,7 @@ class Menu extends BaseController
             $this->session->set_flashdata('message', 'Menu Berhasil Diubah');
             redirect('menu');
         }else{
-            $this->session->set_flashdata('message', 'Menu Gagal Diubah');
+            $this->session->set_flashdata('error', 'Menu Gagal Diubah');
             redirect('menu');
         }
     }
@@ -87,7 +87,7 @@ class Menu extends BaseController
             $this->session->set_flashdata('message', 'Menu Berhasil Dihapus');
             redirect('menu');
         }else{
-            $this->session->set_flashdata('message', 'Menu Gagal Dihapus');
+            $this->session->set_flashdata('error', 'Menu Gagal Dihapus');
             redirect('menu');
         }
     }

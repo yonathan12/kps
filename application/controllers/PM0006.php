@@ -8,7 +8,6 @@ class PM0006 extends BaseController
     {
         parent::__construct();
         $this->load->model('PM0006_model');
-        $this->load->library('form_validation');
     }
 
     public function index()
@@ -43,7 +42,7 @@ class PM0006 extends BaseController
                 $this->session->set_flashdata('message', 'Tahun Ajaran Berhasil Ditambahkan');
                 redirect('PM0006');
             } else {
-                $this->session->set_flashdata('message1', 'Tahun Ajaran Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'Tahun Ajaran Gagal Ditambahkan');
                 redirect('PM0006');
             }
         }
@@ -80,7 +79,7 @@ class PM0006 extends BaseController
                 $this->session->set_flashdata('message', 'Tahun Ajaran Berhasil Diubah');
                 redirect('PM0006');
             } else {
-                $this->session->set_flashdata('message', 'Tahun Ajaran Gagal Diubah');
+                $this->session->set_flashdata('error', 'Tahun Ajaran Gagal Diubah');
                 redirect('PM0006');
             }
         }
@@ -93,7 +92,7 @@ class PM0006 extends BaseController
             $this->session->set_flashdata('message', 'Tahun Ajaran Berhasil Dihapus');
             redirect('PM0006');
         } else {
-            $this->session->set_flashdata('message', 'Tahun Ajaran Gagal Dihapus');
+            $this->session->set_flashdata('error', 'Tahun Ajaran Gagal Dihapus');
             redirect('PM0006');
         }
     }

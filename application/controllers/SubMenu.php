@@ -9,7 +9,6 @@ class SubMenu extends BaseController
         parent::__construct();
         $this->load->model('SubMenu_model');
         $this->load->model('Menu_model');
-        $this->load->library('form_validation');
     }
     public function index()
     {
@@ -43,8 +42,8 @@ class SubMenu extends BaseController
 
             $data = [
                 'param_menu_id' => $menu_id,
-                'descr' => strtoupper($title),
-                'url' => $url,
+                'descr' => $title,
+                'url' => strtoupper($url),
                 'icon' => $icon,
                 'is_active' => $active,
                 'created_by' => $user_id,
@@ -55,7 +54,7 @@ class SubMenu extends BaseController
                 $this->session->set_flashdata('message', 'SubMenu Berhasil Ditambahkan');
                 redirect('submenu');
             } else {
-                $this->session->set_flashdata('message1', 'SubMenu Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'SubMenu Gagal Ditambahkan');
                 redirect('submenu');
             }
         }
@@ -94,8 +93,8 @@ class SubMenu extends BaseController
 
             $data = [
                 'param_menu_id' => $menu_id,
-                'descr' => strtoupper($title),
-                'url' => $url,
+                'descr' => $title,
+                'url' => strtoupper($url),
                 'icon' => $icon,
                 'is_active' => $active,
                 'created_by' => $user_id,
@@ -106,7 +105,7 @@ class SubMenu extends BaseController
                 $this->session->set_flashdata('message', 'SubMenu Berhasil Diubah');
                 redirect('submenu');
             } else {
-                $this->session->set_flashdata('message', 'SubMenu Gagal Diubah');
+                $this->session->set_flashdata('error', 'SubMenu Gagal Diubah');
                 redirect('submenu');
             }
         }
@@ -119,7 +118,7 @@ class SubMenu extends BaseController
             $this->session->set_flashdata('message', 'SubMenu Berhasil Dihapus');
             redirect('submenu');
         } else {
-            $this->session->set_flashdata('message', 'SubMenu Gagal Dihapus');
+            $this->session->set_flashdata('error', 'SubMenu Gagal Dihapus');
             redirect('submenu');
         }
     }

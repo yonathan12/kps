@@ -97,8 +97,8 @@ class SubMenu extends BaseController
                 'url' => strtoupper($url),
                 'icon' => $icon,
                 'is_active' => $active,
-                'created_by' => $user_id,
-                'created_at' => $tgl
+                'updated_by' => $user_id,
+                'updated_at' => $tgl
             ];
             $get_id = $this->SubMenu_model->update($data, $this->input->post('id'));
             if ($get_id) {

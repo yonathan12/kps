@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-6">
       <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message');?>"> </div>
-      <?php $this->session->flashdata('message')?$this->session->flashdata('message'):''?>
+      <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
       </div>
     </div>
     <div class="card mb-3" style="max-width: 540px;">

@@ -58,17 +58,23 @@ class KPS001 extends BaseController
         if ($this->form_validation->run() == FALSE) {
             redirect('KPS001');
         } else {
-            $data['user'] = $this->username;
-            $data['title'] = 'Kartu Pelanggaran Siswa';
-            $data['datakps'] = $this->KPS001_model->show($nisn);
-            $data['total_pelanggaran'] = count($this->KPS001_model->show($nisn));
-            $data['student'] = $this->KPS001_model->showStudent($nisn);
-            $data['kps'] = $this->PM0007_model->index();
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('KPS001/show', $data);
-            $this->load->view('templates/footer');
+            $check_nisn = $this->db->get_where('mast_student', ['nisn' => $nisn])->num_rows();
+            if ($check_nisn === 0) {
+                $this->session->set_flashdata('error', 'Siswa Tidak Terdaftar');
+                redirect('KPS001');
+            } else {
+                $data['user'] = $this->username;
+                $data['title'] = 'Kartu Pelanggaran Siswa';
+                $data['datakps'] = $this->KPS001_model->show($nisn);
+                $data['total_pelanggaran'] = count($this->KPS001_model->show($nisn));
+                $data['student'] = $this->KPS001_model->showStudent($nisn);
+                $data['kps'] = $this->PM0007_model->index();
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('KPS001/show', $data);
+                $this->load->view('templates/footer');
+            }
         }
     }
 

@@ -2,7 +2,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <div class="">
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"> </div>
-        <div class="flash-data1" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
+        <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
         <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Tambah Siswa</a>
         <a href="#" class="btn btn-success mb-3" data-toggle="modal" data-target="#upload">Upload Data Siswa</a>
         <a href="#" class="btn btn-warning mb-3" data-toggle="modal" data-target="#upload">Download Template Upload Data Siswa</a>

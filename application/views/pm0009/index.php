@@ -2,7 +2,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <div class="">
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"> </div>
-        <div class="flash-data1" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
+        <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
         <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Tambah User</a>
         <table class="table table-striped table-bordered" id="tableUserSiswa" style="width:100%">
             <thead>

@@ -2,7 +2,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <div class="">
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"> </div>
-        <div class="flash-data1" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
+        <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
         <form action="<?= base_url(); ?>KPS001/show" method="POST" onsubmit="return validasi(this)">
             <div class="modal-body">
                 <div class="form-group">

@@ -192,7 +192,7 @@ class MS0001 extends BaseController
         
         $writer = WriterEntityFactory::createXLSXWriter();
 
-        $writer->openToBrowser("Export Data Dosis.xlsx");
+        $writer->openToBrowser("Template Import Data Siswa.xlsx");
         $header = WriterEntityFactory::createRowFromArray([
             'Sumber Data Siswa'
         ]);

@@ -6,7 +6,7 @@ class KPS001_model extends CI_Model
     public function show($nisn)
     {
         $query = "
-            SELECT pkps.id, pkps.descr, DATE_FORMAT(mast.created_at,'%d/%m/%Y') AS tanggal
+            SELECT kps.id, pkps.descr, DATE_FORMAT(mast.created_at,'%d/%m/%Y') AS tanggal
             FROM mast_kps AS kps
             JOIN mast_student mast ON mast.id = kps.mast_student_id
             JOIN param_kps pkps ON pkps.id = kps.param_kps_id
@@ -34,5 +34,15 @@ class KPS001_model extends CI_Model
     {
         $this->db->insert('mast_kps',$data);
         return $this->db->insert_id();
+    }
+
+    public function update($data, $id)
+    {
+        return $this->db->update('mast_kps',$data,['id' => $id]);
+    }
+
+    public function destroy($id)
+    {
+        return $this->db->delete('mast_kps',['id' => $id]);
     }
 }

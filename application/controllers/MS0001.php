@@ -1,6 +1,8 @@
 <?php
 require('BaseController.php');
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once APPPATH.'/third_party/spout/src/Spout/Autoloader/autoload.php';
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
 class MS0001 extends BaseController
 {
@@ -172,5 +174,78 @@ class MS0001 extends BaseController
             $this->session->set_flashdata('error', 'Data Siswa Gagal Dihapus');
             redirect('MS0001');
         }
+    }
+
+    public function template()
+    {
+        $data = [];
+        $class = $this->db->query("select id, descr, 'kelas' as keterangan from param_class")->result_array();
+        $data = array_merge($data,$class);
+        $subclass = $this->db->query("select id, descr, 'subkelas' as keterangan from param_subclass")->result_array();
+        $data = array_merge($data, $subclass);
+
+        $semester = $this->db->query("select id, descr, 'semester' as keterangan from param_semester")->result_array();
+        $data = array_merge($data, $semester);
+
+        $scholl_year = $this->db->query("select id, descr, 'thn_ajaran' as keterangan from param_scholl_year")->result_array();
+        $data = array_merge($data, $scholl_year);
+        
+        $writer = WriterEntityFactory::createXLSXWriter();
+
+        $writer->openToBrowser("Export Data Dosis.xlsx");
+        $header = WriterEntityFactory::createRowFromArray([
+            'Sumber Data Siswa'
+        ]);
+        $sub_header = WriterEntityFactory::createRowFromArray(array(
+            "Deskripsi",
+            "ID",
+            "Keterangan"
+        ));
+
+        $header_template = WriterEntityFactory::createRowFromArray([
+            'Contoh Data Siswa'
+        ]);
+        $sub_header_template = WriterEntityFactory::createRowFromArray(array(
+            "NISN",
+            "Nama Lengkap",
+            "Tanggal Lahir",
+            "Kelas",
+            "Sub Kelas",
+            "Semester",
+            "Tahun Ajaran"
+        ));
+
+        $value_template = WriterEntityFactory::createRowFromArray(array(
+            "0123123",
+            "Joni",
+            "1995-12-31",
+            "2",
+            "2",
+            "1",
+            "2"
+        ));
+
+        $sumberData = $writer->getCurrentSheet();
+        $sumberData->setName('Sumber Data');
+        $writer->addRow($header);
+        $writer->addRow($sub_header);
+        foreach ($data as $key => $value) { 
+            $row = WriterEntityFactory::createRowFromArray([
+                $value['descr'],
+                $value['id'],
+                $value['keterangan'],
+            ]);
+            $writer->addRow($row);
+        }
+
+        $templateSheet = $writer->addNewSheetAndMakeItCurrent();
+        $templateSheet->setName('Data');
+        $writer->addRow($header_template);
+        $writer->addRow($sub_header_template);
+        $writer->addRow($value_template);
+
+        $writer->setCurrentSheet($sumberData);
+
+        $writer->close();
     }
 }

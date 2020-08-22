@@ -42,10 +42,10 @@ class KPS001 extends BaseController
             );
             $insert = $this->KPS001_model->create($data);
             if ($insert) {
-                $this->session->set_flashdata('message', 'Pelanggaran Berhasil Ditambahkan');
+                $this->session->set_flashdata('message', 'Jenis Pelanggaran Berhasil Ditambahkan');
                 redirect('KPS001');
             } else {
-                $this->session->set_flashdata('error', 'Pelanggaran Gagal Ditambahkan');
+                $this->session->set_flashdata('error', 'Jenis Pelanggaran Gagal Ditambahkan');
                 redirect('KPS001');
             }
         }
@@ -78,26 +78,38 @@ class KPS001 extends BaseController
         }
     }
 
+    public function edit($id)
+    {
+        header('Content-Type: application/json');
+        $this->db->select('id,param_kps_id');
+        $getData = $this->db->get_where('mast_kps', ['id' => $id])->row_array();
+        if (($getData)) {
+            $data = ['data' => ['status' => true, 'data' => $getData]];
+        } else {
+            $data = ['data' => ['status' => false, 'message' => 'Data Tidak Ditemukan']];
+        }
+
+        echo json_encode($data);
+    }
+
     public function update()
     {
-        $this->form_validation->set_rules('descr', 'Kelas', 'required');
-        $this->form_validation->set_rules('code', 'Kode', 'required');
+        $this->form_validation->set_rules('kps_id', 'Jenis Pelanggaran', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             redirect('KPS001');
         } else {
             $data = [
-                'code' => $this->input->post('code'),
-                'descr' => $this->input->post('descr'),
+                'param_kps_id' => $this->input->post('kps_id'),
                 'updated_by' => $this->input->post('user_id'),
                 'updated_at' => $this->datenow
             ];
             $get_id = $this->KPS001_model->update($data, $this->input->post('id'));
             if ($get_id) {
-                $this->session->set_flashdata('message', 'Kelas Berhasil Diubah');
+                $this->session->set_flashdata('message', 'Jenis Pelanggaran Berhasil Diubah');
                 redirect('KPS001');
             } else {
-                $this->session->set_flashdata('error', 'Kelas Gagal Diubah');
+                $this->session->set_flashdata('error', 'Jenis Pelanggaran Gagal Diubah');
                 redirect('KPS001');
             }
         }
@@ -107,10 +119,10 @@ class KPS001 extends BaseController
     {
         $delete = $this->KPS001_model->destroy($id);
         if ($delete) {
-            $this->session->set_flashdata('message', 'Kelas Berhasil Dihapus');
+            $this->session->set_flashdata('message', 'Jenis Pelanggaran Berhasil Dihapus');
             redirect('KPS001');
         } else {
-            $this->session->set_flashdata('error', 'Kelas Gagal Dihapus');
+            $this->session->set_flashdata('error', 'Jenis Pelanggaran Gagal Dihapus');
             redirect('KPS001');
         }
     }

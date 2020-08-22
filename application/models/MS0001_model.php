@@ -28,6 +28,31 @@ class MS0001_model extends CI_Model
 
     public function update($data, $id)
     {
+        $this->db->select('param_class_id,param_subclass_id,param_semester_id,param_scholl_year_id');
+        $get_old = $this->db->get_where('mast_student',['id' => $id])->result_array()[0];
+        $new_data = $data;
+        unset($new_data['nisn']);
+        unset($new_data['fullnm']);
+        unset($new_data['brthdt']);
+        unset($new_data['updated_by']);
+        unset($new_data['updated_at']);
+        
+        $check_value = 0;
+        foreach ($get_old as $key => $value) {
+            if($value !== $new_data[$key]){
+                $check_value = 1;
+            }
+        }
+        if($check_value > 0){
+            $user_id = $this->uid;
+            $tgl = $this->datenow;
+            $hist_student = array_merge($get_old, [
+                'mast_student_id' => $id,
+                'created_by' => $user_id,
+                'created_at' => $tgl
+            ]);
+            $this->db->insert('hist_mast_student',$hist_student);
+        }
         $this->db->where('id', $id);
         $get_id = $this->db->update('mast_student', $data);
         return $get_id;

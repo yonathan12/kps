@@ -6,6 +6,9 @@
     </div>
     <div class="sidebar-brand-text mx-3">KPS</div>
   </a>
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>user">
+    <div class="sidebar-brand-text">SMK 1 Sragen</div>
+</a>
 
   <hr class="sidebar-divider">
   <?php

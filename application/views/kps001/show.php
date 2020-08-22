@@ -30,7 +30,7 @@
                         <td><?= $value['tanggal']; ?></td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#editKPS<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Edit</a>
-                            <a href="kps001/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="<?= base_url(); ?>kps001/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -86,14 +86,15 @@
             <form action="<?= base_url(); ?>kps001/update" method="POST" onsubmit="return validasiedit(this)">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="Kode" class="col-form-label">Kode:</label>
-                        <input type="text" class="form-control" id="codeedit" name="code" placeholder="Kode">
-                    </div>
-                    <div class="form-group">
-                        <label for="Kelas" class="col-form-label">Kelas:</label>
-                        <input type="text" class="form-control" id="editdescr" name="descr" placeholder="Kelas">
-                        <input type="text" hidden name="id" id="id">
+                        <label for="Kelas" class="col-form-label">Jenis Pelanggaran:</label>
+                        <select name="kps_id" class="form-control" id="kps_id_edit">
+                            <option value="">Select Jenis Pelanggaran</option>
+                            <?php foreach ($kps as $key => $value) : ?>
+                                <option value="<?= $value['id'] ?>"><?= $value['descr'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                         <input type="text" name="user_id" hidden value="<?= $this->session->userdata('id'); ?>">
+                        <input type="text" name="id" id="idedit" hidden>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -108,7 +109,6 @@
 <script type="text/javascript">
     function validasi(form) {
         var kps_id = form.kps_id.value;
-        var descr = form.descr.value;
         if (!kps_id) {
             Swal.fire(
                 'Pesan',
@@ -121,19 +121,11 @@
     }
 
     function validasiedit(form) {
-        var code = form.codeedit.value;
-        var descr = form.editdescr.value;
-        if (!code) {
+        var kps_id = form.kps_id_edit.value;
+        if (!kps_id) {
             Swal.fire(
                 'Pesan',
-                'Kode Wajib Diisi',
-                'warning'
-            )
-            return false;
-        } else if (!descr) {
-            Swal.fire(
-                'Pesan',
-                'Kelas Wajib Diisi',
+                'Jenis Pelanggaran Wajib Diisi',
                 'warning'
             )
             return false;
@@ -145,14 +137,13 @@
         $('#editKPS').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('kps001/show/'); ?>" + id,
+            url: "<?= base_url('kps001/edit/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;
                 if (data.status === true) {
-                    document.getElementById("codeedit").value = data.data.code;
-                    document.getElementById("editdescr").value = data.data.descr;
-                    document.getElementById("id").value = data.data.id;
+                    document.getElementById("kps_id_edit").value = data.data.param_kps_id;
+                    document.getElementById("idedit").value = data.data.id;
                     $('#editKPS').modal('show');
                 } else {
                     Swal.fire(

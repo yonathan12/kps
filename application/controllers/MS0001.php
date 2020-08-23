@@ -183,7 +183,8 @@ class MS0001 extends BaseController
         $data = [];
         $class = $this->db->query("select id, descr, 'kelas' as keterangan from param_class")->result_array();
         $data = array_merge($data, $class);
-        $subclass = $this->db->query("select id, descr, 'subkelas' as keterangan from param_subclass")->result_array();
+        $subclass = $this->db->query("select subclass.id, concat(class.descr,' - ', subclass.descr) descr, 'subkelas' as keterangan from param_subclass as subclass 
+        join param_class as class on class.id = subclass.param_class_id")->result_array();
         $data = array_merge($data, $subclass);
 
         $semester = $this->db->query("select id, descr, 'semester' as keterangan from param_semester")->result_array();

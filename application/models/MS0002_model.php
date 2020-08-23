@@ -6,7 +6,7 @@ class MS0002_model extends CI_Model
     public function index($param_class_id, $param_subclass_id, $param_semester_id, $param_scholl_year_id)
     {
         $query = "                
-        SELECT tmp.*, COUNT(tmp.id) AS total FROM (
+        SELECT tmp.*, COUNT(tmp.kps_id) AS total FROM (
             SELECT mast.id, mast.nisn, mast.fullnm, kps.id AS kps_id
         FROM mast_student AS mast
         LEFT JOIN mast_kps kps ON mast.id = kps.mast_student_id

@@ -7,6 +7,7 @@ class PM0003_model extends CI_Model
     public function index()
     {
         $this->db->order_by('descr ASC');
+        $this->db->where('id != 1');
         return $this->db->get('param_role')->result_array();
     }
 

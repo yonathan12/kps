@@ -12,7 +12,7 @@ class KPS001_model extends CI_Model
             JOIN param_kps pkps ON pkps.id = kps.param_kps_id
             WHERE mast.nisn = '$nisn'
         ";
-        return $this->db->query($query)->result_array();
+        return $this->db->query($query);
     }
 
     public function showStudent($nisn)

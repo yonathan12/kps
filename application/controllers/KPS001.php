@@ -65,8 +65,8 @@ class KPS001 extends BaseController
             } else {
                 $data['user'] = $this->username;
                 $data['title'] = 'Kartu Pelanggaran Siswa';
-                $data['datakps'] = $this->KPS001_model->show($nisn);
-                $data['total_pelanggaran'] = count($this->KPS001_model->show($nisn));
+                $data['datakps'] = $this->KPS001_model->show($nisn)->result_array();
+                $data['total_pelanggaran'] = count($this->KPS001_model->show($nisn)->result_array());
                 $data['student'] = $this->KPS001_model->showStudent($nisn);
                 $data['kps'] = $this->PM0007_model->index();
                 $this->load->view('templates/header', $data);

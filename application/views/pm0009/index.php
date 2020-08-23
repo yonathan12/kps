@@ -19,7 +19,7 @@
                         <td><?= $value['nisn']; ?></td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#editUser<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Ganti Password</a>
-                            <a href="pm0009/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="PM0009/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -39,7 +39,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0009/create" method="POST" onsubmit="return validasi(this)">
+            <form action="<?= base_url(); ?>PM0009/create" method="POST" onsubmit="return validasi(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="NISN" class="col-form-label">NISN:</label>
@@ -70,7 +70,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0009/update" method="POST" onsubmit="return validasiedit(this)">
+            <form action="<?= base_url(); ?>PM0009/update" method="POST" onsubmit="return validasiedit(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="NISN" class="col-form-label">NISN:</label>
@@ -148,7 +148,7 @@
         $('#editUser').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('pm0009/show/'); ?>" + id,
+            url: "<?= base_url('PM0009/show/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;

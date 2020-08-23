@@ -30,7 +30,7 @@
                         <td><?= $value['tanggal']; ?></td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#editKPS<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Edit</a>
-                            <a href="<?= base_url(); ?>kps001/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="<?= base_url(); ?>KPS001/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -50,7 +50,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>kps001/create" method="POST" onsubmit="return validasi(this)">
+            <form action="<?= base_url(); ?>KPS001/create" method="POST" onsubmit="return validasi(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="Kelas" class="col-form-label">Jenis Pelanggaran:</label>
@@ -83,7 +83,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>kps001/update" method="POST" onsubmit="return validasiedit(this)">
+            <form action="<?= base_url(); ?>KPS001/update" method="POST" onsubmit="return validasiedit(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="Kelas" class="col-form-label">Jenis Pelanggaran:</label>
@@ -137,7 +137,7 @@
         $('#editKPS').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('kps001/edit/'); ?>" + id,
+            url: "<?= base_url('KPS001/edit/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;

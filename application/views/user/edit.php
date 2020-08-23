@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"> </div>
             <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
-            <form action="<?= base_url('user/edit') ?>" method="post" onsubmit="return validasi(this)" enctype="multipart/form-data">
+            <form action="<?= base_url('User/edit') ?>" method="post" onsubmit="return validasi(this)" enctype="multipart/form-data">
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">

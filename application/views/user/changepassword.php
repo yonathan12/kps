@@ -4,7 +4,7 @@
   <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
   <div class="row">
     <div class="col-lg-6">
-      <form action="<?= base_url('user/changepassword') ?>" method="post" onsubmit="return validasi(this)">
+      <form action="<?= base_url('User/changepassword') ?>" method="post" onsubmit="return validasi(this)">
         <div class="form-group">
           <label for="current_password">Password Lama</label>
           <input type="password" class="form-control" id="current_password" aria-describedby="emailHelp" name="current_password">

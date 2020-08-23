@@ -28,7 +28,7 @@
 
                         <td>
                             <a href="#" data-toggle="modal" data-target="#editSubMenu<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Edit</a>
-                            <a href="submenu/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="SubMenu/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -48,7 +48,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>submenu/create" method="POST" onsubmit="return validasi(this);">
+            <form action="<?= base_url(); ?>SubMenu/create" method="POST" onsubmit="return validasi(this);">
                 <div class="form-group">
                     <input type="text" class="form-control" id="descr" name="descr" placeholder="Submenu">
                     <?= form_error('descr', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -96,7 +96,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>submenu/update" method="POST" onsubmit="return validasiedit(this);">
+            <form action="<?= base_url(); ?>SubMenu/update" method="POST" onsubmit="return validasiedit(this);">
                 <div class="form-group">
                     <input type="text" class="form-control" id="editsubmenu" name="descr" placeholder="Submenu">
                     <input type="text" hidden="" name="id" id="idedit">
@@ -196,7 +196,7 @@
         $('#editSubMenu').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('submenu/show/'); ?>" + id,
+            url: "<?= base_url('SubMenu/show/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;
@@ -211,7 +211,6 @@
                     }else{
                         $('#edit_is_active').attr('checked',false);
                     }
-                    
 
                     $('#editSubMenu').modal('show');
                 } else {

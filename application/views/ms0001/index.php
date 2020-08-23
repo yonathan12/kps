@@ -5,7 +5,7 @@
         <div class="error_message" data-flashdata="<?= $this->session->flashdata('error'); ?>"> </div>
         <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Tambah Siswa</a>
         <a href="#" class="btn btn-success mb-3" data-toggle="modal" data-target="#upload">Upload Data Siswa</a>
-        <a href="<?= base_url() ?>/MS0001/TEMPLATE" class="btn btn-warning mb-3">Download Template Upload Data Siswa</a>
+        <a href="<?= base_url() ?>/MS0001/template" class="btn btn-warning mb-3">Download Template Upload Data Siswa</a>
         <table class="table table-striped table-bordered" id="tableSiswa" style="width:100%">
             <thead>
                 <tr>

@@ -19,7 +19,7 @@
                         <td><?= $value['descr']; ?></td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#editSemester<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Edit</a>
-                            <a href="pm0003/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="PM0003/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -39,7 +39,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0003/create" method="POST" onsubmit="return validasi(this)">
+            <form action="<?= base_url(); ?>PM0003/create" method="POST" onsubmit="return validasi(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="Role" class="col-form-label">Role:</label>
@@ -66,7 +66,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0003/update" method="POST" onsubmit="return validasiedit(this)">
+            <form action="<?= base_url(); ?>PM0003/update" method="POST" onsubmit="return validasiedit(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="Role" class="col-form-label">Role:</label>
@@ -115,7 +115,7 @@
         $('#editSemester').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('pm0003/show/'); ?>" + id,
+            url: "<?= base_url('PM0003/show/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;

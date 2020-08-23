@@ -39,7 +39,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url(); ?>menu/create" method="POST" onsubmit="return validasi(this)">
+      <form action="<?= base_url(); ?>Menu/create" method="POST" onsubmit="return validasi(this)">
         <div class="modal-body">
           <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu">
           <input type="text" name="user_id" hidden value="<?= $this->session->userdata('id'); ?>">
@@ -63,7 +63,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url(); ?>menu/update" method="POST" onsubmit="return validasi(this)">
+      <form action="<?= base_url(); ?>Menu/update" method="POST" onsubmit="return validasi(this)">
         <div class="modal-body">
           <input type="text" class="form-control" id="menuedit" name="menu" placeholder="Menu">
           <input type="text" hidden name="id" id="idedit">
@@ -96,7 +96,7 @@
     $('#editMenu').modal('hide');
     var id = e.id;
     $.ajax({
-      url: "<?= base_url('menu/show/'); ?>" + id,
+      url: "<?= base_url('Menu/show/'); ?>" + id,
       type: 'GET',
       success: function(res) {
         var data = res.data;

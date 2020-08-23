@@ -17,8 +17,8 @@
                         <th scope="row"><?= $key + 1; ?></th>
                         <td><?= $value['descr']; ?></td>
                         <td>
-                            <a href="pm0004/show/<?= $value['id']; ?>" class="badge badge-warning" id="<?= $value['id'] ?>">Access</a>
-                            <a href="pm0004/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="PM0004/show/<?= $value['id']; ?>" class="badge badge-warning" id="<?= $value['id'] ?>">Access</a>
+                            <a href="PM0004/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

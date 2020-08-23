@@ -19,7 +19,7 @@
                         <td><?= $value['descr']; ?></td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#editKPS<?= $value['id']; ?>" class="badge badge-primary" id="<?= $value['id'] ?>" onclick="return detailData(this)">Edit</a>
-                            <a href="pm0007/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
+                            <a href="PM0007/destroy/<?= $value['id']; ?>" class="badge badge-danger delete">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -39,7 +39,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0007/create" method="POST" onsubmit="return validasi(this)">
+            <form action="<?= base_url(); ?>PM0007/create" method="POST" onsubmit="return validasi(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="KPS" class="col-form-label">Pelanggaran:</label>
@@ -66,7 +66,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url(); ?>pm0007/update" method="POST" onsubmit="return validasiedit(this)">
+            <form action="<?= base_url(); ?>PM0007/update" method="POST" onsubmit="return validasiedit(this)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="KPS" class="col-form-label">Pelanggaran:</label>
@@ -115,7 +115,7 @@
         $('#editKPS').modal('hide');
         var id = e.id;
         $.ajax({
-            url: "<?= base_url('pm0007/show/'); ?>" + id,
+            url: "<?= base_url('PM0007/show/'); ?>" + id,
             type: 'GET',
             success: function(res) {
                 var data = res.data;

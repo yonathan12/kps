@@ -1,8 +1,10 @@
 <?php
 require('BaseController.php');
 defined('BASEPATH') or exit('No direct script access allowed');
-require_once APPPATH.'/third_party/spout/src/Spout/Autoloader/autoload.php';
+require_once APPPATH . '/third_party/spout/src/Spout/Autoloader/autoload.php';
+
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
 class MS0001 extends BaseController
 {
@@ -84,7 +86,7 @@ class MS0001 extends BaseController
         ];
 
         if ($this->form_validation->run() == FALSE) {
-            die(print_r($data,1));
+            die(print_r($data, 1));
             redirect('MS0001');
         } else {
             $check_nisn = $this->db->get_where('mast_student', ['nisn' => $nisn])->num_rows();
@@ -180,7 +182,7 @@ class MS0001 extends BaseController
     {
         $data = [];
         $class = $this->db->query("select id, descr, 'kelas' as keterangan from param_class")->result_array();
-        $data = array_merge($data,$class);
+        $data = array_merge($data, $class);
         $subclass = $this->db->query("select id, descr, 'subkelas' as keterangan from param_subclass")->result_array();
         $data = array_merge($data, $subclass);
 
@@ -189,7 +191,7 @@ class MS0001 extends BaseController
 
         $scholl_year = $this->db->query("select id, descr, 'thn_ajaran' as keterangan from param_scholl_year")->result_array();
         $data = array_merge($data, $scholl_year);
-        
+
         $writer = WriterEntityFactory::createXLSXWriter();
 
         $writer->openToBrowser("Template Import Data Siswa.xlsx");
@@ -229,7 +231,7 @@ class MS0001 extends BaseController
         $sumberData->setName('Sumber Data');
         $writer->addRow($header);
         $writer->addRow($sub_header);
-        foreach ($data as $key => $value) { 
+        foreach ($data as $key => $value) {
             $row = WriterEntityFactory::createRowFromArray([
                 $value['descr'],
                 $value['id'],
@@ -247,5 +249,68 @@ class MS0001 extends BaseController
         $writer->setCurrentSheet($sumberData);
 
         $writer->close();
+    }
+
+    public function upload()
+    {
+        if (isset($_FILES["file"]["name"])) {
+
+            $path = $_FILES["file"]["tmp_name"];
+            $reader = ReaderEntityFactory::createXLSXReader();
+
+            $reader->open($path);
+            $insertdata = [];
+            $userSiswa = [];
+            foreach ($reader->getSheetIterator() as $k => $sheet) {
+                if ($k === 2) {
+                    foreach ($sheet->getRowIterator() as $key => $row) {
+                        $cells = $row->getCells();
+                        if ($key > 2) {
+                            $nisn = $cells[0]->getValue();
+                            $brthdt = $cells[2]->getValue();
+                            $check_nisn = $this->db->get_where('mast_student', ['nisn' => $nisn]);
+                            if ($check_nisn->num_rows() === 0) {
+                                $value = [
+                                    'nisn' => $cells[0]->getValue(),
+                                    'fullnm' => ucwords($cells[1]->getValue()),
+                                    'brthdt' => $cells[2]->getValue(),
+                                    'param_class_id' => $cells[3]->getValue(),
+                                    'param_subclass_id' => $cells[4]->getValue(),
+                                    'param_semester_id' => $cells[5]->getValue(),
+                                    'param_scholl_year_id' => $cells[6]->getValue(),
+                                    'created_by' => $this->uid,
+                                    'created_at' => $this->datenow
+                                ];
+                                $password = explode("-", $brthdt);
+                                $user_login = [
+                                    'nisn' => $nisn,
+                                    'password' => password_hash($password[2] . $password[1] . $password[0], PASSWORD_DEFAULT),
+                                    'created_by' => $this->uid,
+                                    'created_at' => $this->datenow
+                                ];
+                                $insert = $this->MS0001_model->create($value, $user_login);
+                            }else{
+                                $id = $check_nisn->result_object()[0]->id;
+                                $value = [
+                                    'nisn' => $cells[0]->getValue(),
+                                    'fullnm' => ucwords($cells[1]->getValue()),
+                                    'brthdt' => $cells[2]->getValue(),
+                                    'param_class_id' => $cells[3]->getValue(),
+                                    'param_subclass_id' => $cells[4]->getValue(),
+                                    'param_semester_id' => $cells[5]->getValue(),
+                                    'param_scholl_year_id' => $cells[6]->getValue(),
+                                    'updated_by' => $this->uid,
+                                    'updated_at' => $this->datenow
+                                ];
+                                $this->MS0001_model->update($value, $id);
+                            }
+                        }
+                    }
+                }
+            }
+            $reader->close();
+        }
+         $this->session->set_flashdata('message', 'Berhasil Mengimport Data Siswa');
+         redirect(base_url('MS0001'));
     }
 }

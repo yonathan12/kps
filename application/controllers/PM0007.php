@@ -18,7 +18,7 @@ class PM0007 extends BaseController
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('PM0007/index', $data);
+        $this->load->view('pm0007/index', $data);
         $this->load->view('templates/footer');
     }
 

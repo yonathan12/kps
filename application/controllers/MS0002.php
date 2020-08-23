@@ -24,7 +24,7 @@ class MS0002 extends BaseController
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('MS0002/index', $data);
+        $this->load->view('ms0002/index', $data);
         $this->load->view('templates/footer');
     }
 
@@ -67,7 +67,7 @@ class MS0002 extends BaseController
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('MS0002/show', $data);
+            $this->load->view('ms0002/show', $data);
             $this->load->view('templates/footer');
         }
     }

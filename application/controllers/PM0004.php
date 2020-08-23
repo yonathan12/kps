@@ -19,7 +19,7 @@ class PM0004 extends BaseController
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('PM0004/index', $data);
+        $this->load->view('pm0004/index', $data);
         $this->load->view('templates/footer');
     }
 
@@ -63,7 +63,7 @@ class PM0004 extends BaseController
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar',$data);
         $this->load->view('templates/topbar',$data);
-        $this->load->view('PM0004/show',$data);
+        $this->load->view('pm0004/show',$data);
         $this->load->view('templates/footer');
     }
 

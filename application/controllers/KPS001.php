@@ -18,7 +18,7 @@ class KPS001 extends BaseController
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('KPS001/index', $data);
+        $this->load->view('kps001/index', $data);
         $this->load->view('templates/footer');
     }
 

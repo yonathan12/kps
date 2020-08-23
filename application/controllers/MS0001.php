@@ -27,7 +27,7 @@ class MS0001 extends BaseController
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('MS0001/index', $data);
+        $this->load->view('ms0001/index', $data);
         $this->load->view('templates/footer');
     }
 

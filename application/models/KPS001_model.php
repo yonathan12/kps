@@ -6,7 +6,7 @@ class KPS001_model extends CI_Model
     public function show($nisn)
     {
         $query = "
-            SELECT kps.id, pkps.descr, DATE_FORMAT(mast.created_at,'%d/%m/%Y') AS tanggal
+            SELECT kps.id, pkps.descr, DATE_FORMAT(kps.created_at,'%d/%m/%Y') AS tanggal
             FROM mast_kps AS kps
             JOIN mast_student mast ON mast.id = kps.mast_student_id
             JOIN param_kps pkps ON pkps.id = kps.param_kps_id

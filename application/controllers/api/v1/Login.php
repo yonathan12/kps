@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require APPPATH . 'libraries/RESTController.php';
+require APPPATH . 'libraries/RestController.php';
 require APPPATH . 'libraries/Format.php';
 require APPPATH . 'libraries/JWT.php';
 require APPPATH . 'libraries/ExpiredException.php';

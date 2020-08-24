@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-require APPPATH . 'libraries/RESTController.php';
+require APPPATH . 'libraries/RestController.php';
 require APPPATH . 'libraries/Format.php';
 require APPPATH . 'libraries/JWT.php';
 require APPPATH . 'libraries/ExpiredException.php';
@@ -9,7 +9,7 @@ require APPPATH . 'libraries/SignatureInvalidException.php';
 use \Firebase\JWT\JWT;
 use chriskacerguis\RestServer\RestController;
 
-class BaseController extends RESTController
+class BaseController extends RestController
 {
     private $secretkey = 'apaanpasswordnya?';
     private $decode;

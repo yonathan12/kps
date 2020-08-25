@@ -22,7 +22,10 @@ class KPS extends BaseController
         }else{
             $this->res([
                 'status' => true,
-                'data' => $get_data
+                'data' => [
+                    'kps' => $get_data,
+                    'student' => $this->KPS001_model->showStudent($this->nisn)
+                ]
             ],'OK');
         }
         
